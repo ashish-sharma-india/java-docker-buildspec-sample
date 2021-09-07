@@ -11,23 +11,23 @@ steps:
     command: |
       cd src/com/sample/
       javac HelloWorld.java
-    onFailure:
-      - type: Command
-        timeoutInSeconds: 600
-        runAs: root
-        command: |
-          echo "Building Hello World failed"
+#    onFailure:
+#      - type: Command
+#        timeoutInSeconds: 600
+#        runAs: root
+#        command: |
+#          echo "Building Hello World failed"
   - type: Command
       name: "Create Docker image"
       timeoutInSeconds: 600
       command: |
         docker build -t hello-world:1.0 .
-      onFailure:
-        - type: Command
-          timeoutInSeconds: 600
-          runAs: root
-          command: |
-            echo "Creating Docker image failed"
+#      onFailure:
+#        - type: Command
+#          timeoutInSeconds: 600
+#          runAs: root
+#          command: |
+#            echo "Creating Docker image failed"
 
 outputArtifacts:
   - name: hello_world_image
