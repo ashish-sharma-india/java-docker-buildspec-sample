@@ -102,8 +102,8 @@ Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Bui
 ### From your Build Pipeline, choose `Manual Run`
 Use the Manual Run button to start a Build Run
 
-Manual Run will use the latest commit to your Primary Code Repository, if you want to specify a specific commit, you can optionally make that choice for the Primary Code Repository in the dropdown and selection below the Parameters section.
+Manual Run will use the Primary Code Repository, will start the Build Pipeline, first running the Managed Build stage, followed by the Deliver Artifacts stage.
+
+After the Build Pipeline execution is complete, we can view the container image stored in the OCI Conatiner Registry, which can then be pulled to local workspace (Under ```Actions``` , choose ``` Copy Pull Command```).
 
 
-## Make this your own
-Fork this repo from GitHub and make changes if you want to play around with the sample app and the OCI DevOps build configuration.
