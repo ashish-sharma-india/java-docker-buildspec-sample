@@ -99,7 +99,7 @@ Add a **Deliver Artifacts** stage to your Build Pipeline after the **Managed Bui
 
 ### Run your Build in OCI DevOps
 
-### From your Build Pipeline, choose `Manual Run`
+#### From your Build Pipeline, choose `Manual Run`
 Use the Manual Run button to start a Build Run
 
 Manual Run will use the Primary Code Repository, will start the Build Pipeline, first running the Managed Build stage, followed by the Deliver Artifacts stage.
