@@ -49,7 +49,7 @@ Now that you've seen you can locally build this app, let's try this out through 
 ### Create External Connection to your Git repository 
 
 1. Create a [DevOps Project](https://docs.oracle.com/en-us/iaas/Content/devops/using/devops_projects.htm) or use and an existing project. 
-2. In your DevOps project, create an External Connection to your GitHub repoistory which holds your application.
+2. In your DevOps project, create an External Connection to your GitHub repository which holds your application.
    - Create a Personal Access Token (PAT): https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
    - In the OCI Console, Go to Identity & Security -> Vault and create a [Vault]( https://docs.oracle.com/en-us/iaas/Content/KeyManagement/Concepts/keyoverview.htm) in compartment of your own choice.
    - Create a Master Key that will be used to encrypt the PATs. 
@@ -60,7 +60,7 @@ Now that you've seen you can locally build this app, let's try this out through 
    - Finally, allow Build Service (dynamic group with DevOps Resources) to use a PAT secret by writing a policy in the root compartment as: ``` Allow dynamic-group dg-with-devops-resources to manage secret-family in tenancy```
 
 ### Setup your Build Pipeline
-Create a new Build Pipeline to build, test and deliver artifacts from a recent commit.
+Create a new Build Pipeline to build, test and deliver artifacts from your GitHub Repository.
 
 ### Managed Build stage
 In your Build Pipeline, first add a Managed Build stage
@@ -74,7 +74,7 @@ In your Build Pipeline, first add a Managed Build stage
 ### Create a Container Registry repository
 Create a [Container Registry repository](https://docs.oracle.com/en-us/iaas/Content/Registry/Tasks/registrycreatingarepository.htm) for the `hello-world` container image built in the Managed Build stage.
 1. You can name the repo: `java-docker-buildspec-sample-image`. So if you create the repository in the Ashburn region, the path is iad.ocir.io/TENANCY-NAMESPACE/java-docker-buildspec-sample-image
-2. Set the repostiory access to public so that you can pull the container image without authorization from OKE. Under "Actions", choose `Change to public`.
+2. Set the repository access to public so that you can pull the container image without authorization from OKE. Under "Actions", choose `Change to public`.
 
 
 ### Create a DevOps Artifact for your container image repository
@@ -104,6 +104,6 @@ Use the Manual Run button to start a Build Run
 
 Manual Run will use the Primary Code Repository, will start the Build Pipeline, first running the Managed Build stage, followed by the Deliver Artifacts stage.
 
-After the Build Pipeline execution is complete, we can view the container image stored in the OCI Conatiner Registry, which can then be pulled to local workspace (Under ```Actions``` , choose ``` Copy Pull Command```).
+After the Build Pipeline execution is complete, we can view the container image stored in the OCI Container Registry, which can then be pulled to local workspace (Under ```Actions``` , choose ``` Copy Pull Command```).
 
 
