@@ -106,4 +106,4 @@ Manual Run will use the latest commit to your Primary Code Repository, if you wa
 
 
 ## Make this your own
-Fork this repo from GitHub and make changes if you want to play around with the sample app, the OCI DevOps build configuration, and the k8s manifest.
+Fork this repo from GitHub and make changes if you want to play around with the sample app and the OCI DevOps build configuration.
