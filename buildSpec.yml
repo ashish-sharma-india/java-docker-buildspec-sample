@@ -1,12 +1,21 @@
 version: 0.1
 component: build
-timeoutInSeconds: 6000
+timeoutInSeconds: 20000
 runAs: root
 shell: bash
+env:
+  variables:
+#    "repository_tag": #TODO add registry tag
+  "repository_tag": "buildspec_repo"
+  vaultVariables:
+#    "username": #TODO add username
+#    "password": #TODO add password
+    "username": "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aa2g32t6xlucageyf3hlq2fmoutbmhq4633bceaip6txtq"
+    "password": "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aauxd3arlxat6cjpy7ikjz4zh7g62wom6zdii53ri3u4da"
 steps:
   - type: Command
-    name: "Build Hello World"
-    timeoutInSeconds: 400
+    name: "Building Hello World"
+    timeoutInSeconds: 10000
     command: |
       cd src/com/sample/
       javac HelloWorld.java
@@ -14,20 +23,52 @@ steps:
       - type: Command
         command: |
           echo "Building Hello World failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 1000
         runAs: root
   - type: Command
-    timeoutInSeconds: 400
-    name: "Create Docker image"
+    timeoutInSeconds: 10000
+    name: "Docker login"
+    command: |
+      docker login --username $username --password $password
+    onFailure:
+      - type: Command
+        command: |
+          echo "Docker login failed"
+        timeoutInSeconds: 1000
+        runAs: root
+  - type: Command
+    timeoutInSeconds: 10000
+    name: "Creating Docker image"
     command: |
       docker build -t hello-world:1.0 .
     onFailure:
       - type: Command
         command: |
           echo "Creating Docker image failed"
-        timeoutInSeconds: 400
+        timeoutInSeconds: 1000
         runAs: root
-outputArtifacts:
-  - name: hello_world_image
-    type: DOCKER_IMAGE
-    location: hello-world:1.0
+  - type: Command
+    timeoutInSeconds: 10000
+    name: "Tagging Docker image"
+    command: |
+      docker image tag hello-world:1.0 $repository_tag
+    onFailure:
+      - type: Command
+        command: |
+          echo "Tagging Docker image failed"
+        timeoutInSeconds: 1000
+  - type: Command
+    timeoutInSeconds: 10000
+    name: "Pushing Docker image to DockerHub"
+    command: |
+      docker push $username/$repository_tag
+    onFailure:
+      - type: Command
+        command: |
+          echo "Pushing Docker image to DockerHub failed"
+        timeoutInSeconds: 1000
+        runAs: root
+#outputArtifacts:
+#  - name: hello_world_image
+#    type: DOCKER_IMAGE
+#    location: hello-world:1.0
