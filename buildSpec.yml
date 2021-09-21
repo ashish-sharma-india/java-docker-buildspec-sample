@@ -6,12 +6,12 @@ shell: bash
 env:
   variables:
 #    "repository_tag": #TODO add registry tag
-  "repository_tag": "buildspec_repo"
+    repository_tag: "buildspec_repo"
   vaultVariables:
 #    "username": #TODO add username
 #    "password": #TODO add password
-    "username": "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aa2g32t6xlucageyf3hlq2fmoutbmhq4633bceaip6txtq"
-    "password": "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aauxd3arlxat6cjpy7ikjz4zh7g62wom6zdii53ri3u4da"
+    username: "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aa2g32t6xlucageyf3hlq2fmoutbmhq4633bceaip6txtq"
+    password: "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aauxd3arlxat6cjpy7ikjz4zh7g62wom6zdii53ri3u4da"
 steps:
   - type: Command
     name: "Building Hello World"
