@@ -61,7 +61,7 @@ steps:
     timeoutInSeconds: 10000
     name: "Pushing Docker image to DockerHub"
     command: |
-      docker push $username/$repository_tag
+      docker image push $username/$repository_tag
     onFailure:
       - type: Command
         command: |
