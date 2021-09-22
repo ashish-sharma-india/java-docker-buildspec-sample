@@ -8,7 +8,7 @@ env:
     region_key : "iad"
     tenancy_namespace : "idttmev3z6fl"
     oci_username : "amshenoy"
-    repo_name : "bugbash-image-repo-amodh"
+    repo_name : "bugbash-image-repo-amodh-2"
     image_tag : "test_image"
   vaultVariables:
     SECRET_1 : "ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqacbgxnxd4qx5c2iojhuus5elvulqrstpiviwf7hgv244q"
