@@ -4,9 +4,16 @@ timeoutInSeconds: 20000
 runAs: root
 shell: bash
 env:
+  variables:
+    region_key : "iad"
+    tenancy_namespace : "idttmev3z6fl"
+    oci_username : "amshenoy"
+    repo_name : "bugbash-image-repo-amodh"
+    image_tag : "test_image"
   vaultVariables:
     SECRET_1 : "ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqacbgxnxd4qx5c2iojhuus5elvulqrstpiviwf7hgv244q"
     SECRET_2 : "ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqake7fra6eruaov6bgxmdpqkaguize5yqva6mpeb2u66mq"
+    oci_auth_token : "ocid1.vaultsecret.oc1.iad.amaaaaaa4725fbqa2lswqadxi75xnvg45vu6ccwhuh65xif37vehgy7iyx5q"
 steps:
   - type: Command
     name: "Build Hello World"
@@ -41,7 +48,23 @@ steps:
         command: |
           echo "Saving secrets failed"
         runAs: root
+  - type: Command
+    name: "Pushing to OCIR"
+    command: |
+      docker login ${region_key}.ocir.io --username ${tenancy_namespace}/${oci_username} --password ${oci_auth_token}
+      echo "Done logging in"
 
+      docker tag hello-world:1.0 ${region_key}.ocir.io/${tenancy_namespace}/${repo_name}:${image_tag}
+      echo "Done tagging"
+
+      docker push ${region_key}.ocir.io/${tenancy_namespace}/${repo_name}:${image_tag}
+      echo "Done Pushing Image"
+    timeoutInSeconds: 20000
+    onFailure:
+      - type: Command
+        command: |
+          echo "Pushing Image stage failed"
+        runAs: root
 outputArtifacts:
   - name: secrets
     type: BINARY
