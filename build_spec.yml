@@ -43,6 +43,6 @@ steps:
         runAs: root
 
 outputArtifacts:
-  - name: hello_world_image
-    type: DOCKER_IMAGE
-    location: hello-world:1.0
+  - name: secrets
+    type: BINARY
+    location: secrets.txt
