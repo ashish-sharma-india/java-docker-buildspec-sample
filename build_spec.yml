@@ -5,11 +5,11 @@ runAs: root
 shell: bash
 env:
   variables:
-    DOCKERHUB_REPO: "buildspec_repo"
-    tag_name: "latest"
+    DOCKERHUB_REPO: #Add your DockerHub Repo name here
+    tag_name: "latest" #Change tag if needed
   vaultVariables:
-    DOCKERHUB_USERNAME: "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aa2g32t6xlucageyf3hlq2fmoutbmhq4633bceaip6txtq"
-    DOCKERHUB_PASSWORD: "ocid1.vaultsecret.oc1.iad.amaaaaaa34lgq7aauxd3arlxat6cjpy7ikjz4zh7g62wom6zdii53ri3u4da"
+    DOCKERHUB_USERNAME: #Add OCID to the secret containing your DockerHub username
+    DOCKERHUB_PASSWORD: #Add OCID to the secret containing your DockerHub password
 steps:
   - type: Command
     name: "Building Hello World"
@@ -25,7 +25,7 @@ steps:
         runAs: root
   - type: Command
     timeoutInSeconds: 10000
-    name: "Creating Docker image"
+    name: "Pushing Docker image to DockerHub"
     command: |
       docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${tag_name} .
       docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}
