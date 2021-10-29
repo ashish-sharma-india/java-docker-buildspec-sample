@@ -112,14 +112,14 @@ as below and create your private subnet.
 1. In the menu, under Featured you will find Applications. Go to the page and select Create Application
 2. Fill in the necessary details and select the VCN and subnet created in the earlier step. Click on Create.
 
-<img src="./assets/Create Application.png" />
-
 #### Creating the Function 
 Move into your created Application and click on Create Function. Fill in the necessary details
 and select your container image repository created in the earlier step and the image uploaded inside it.
    
 With this you have successfully created a Function on OCI DevOps. Now let us try to automate this
 Function deploy/update part through OCI Build Service.
+         
+<img src="./assets/Create Function.png" />
 
 ### Setting up an Environment
 1. Create a [DevOps Project](https://docs.oracle.com/en-us/iaas/Content/devops/using/devops_projects.htm) or use and an existing project.
