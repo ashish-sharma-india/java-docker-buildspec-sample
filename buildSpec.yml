@@ -5,26 +5,14 @@ runAs: root
 shell: bash
 steps:
   - type: Command
-    name: "Build Hello World"
+    name: "Calculating MD5 Hash"
     timeoutInSeconds: 10000
     command: |
-      cd src/com/sample/
-      javac HelloWorld.java
+      echo Welcome | md5sum
     onFailure:
       - type: Command
         command: |
-          echo "Building Hello World failed"
-        timeoutInSeconds: 1000
-        runAs: root
-  - type: Command
-    timeoutInSeconds: 10000
-    name: "Create Docker image"
-    command: |
-      docker build -t hello-world:1.0 .
-    onFailure:
-      - type: Command
-        command: |
-          echo "Creating Docker image failed"
+          echo "Calculating MD5 hash failed"
         timeoutInSeconds: 1000
         runAs: root
 outputArtifacts:
