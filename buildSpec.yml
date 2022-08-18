@@ -8,14 +8,10 @@ steps:
     name: "Calculating MD5 Hash"
     timeoutInSeconds: 10000
     command: |
-      echo Welcome | md5sum
+      echo Welcome | md5sum | echo
     onFailure:
       - type: Command
         command: |
           echo "Calculating MD5 hash failed"
         timeoutInSeconds: 1000
         runAs: root
-outputArtifacts:
-  - name: hello_world_image
-    type: DOCKER_IMAGE
-    location: hello-world:1.0
