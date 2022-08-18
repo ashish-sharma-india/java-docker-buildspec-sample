@@ -3,15 +3,20 @@ component: build
 timeoutInSeconds: 20000
 runAs: root
 shell: bash
+env:
+  exportedVariables:
+    - md5Hash
 steps:
   - type: Command
     name: "Calculating MD5 Hash"
     timeoutInSeconds: 10000
     command: |
-      echo Welcome | md5sum | echo
+      md5Hash=`echo Welcome | md5sum`;
+      echo ${md5Hash}
     onFailure:
       - type: Command
         command: |
           echo "Calculating MD5 hash failed"
         timeoutInSeconds: 1000
         runAs: root
+    
