@@ -3,13 +3,13 @@ component: build
 timeoutInSeconds: 20000
 runAs: root
 shell: bash
-env:
-  variables:
-    DOCKERHUB_REPO: #Add your DockerHub Repo name here
-    tag_name: "latest" #Change tag if needed
-  vaultVariables:
-    DOCKERHUB_USERNAME: #Add OCID to the secret containing your DockerHub username
-    DOCKERHUB_PASSWORD: #Add OCID to the secret containing your DockerHub password
+#env:
+#  variables:
+#    DOCKERHUB_REPO: #Add your DockerHub Repo name here
+#    tag_name: "latest" #Change tag if needed
+#  vaultVariables:
+#    DOCKERHUB_USERNAME: #Add OCID to the secret containing your DockerHub username
+#    DOCKERHUB_PASSWORD: #Add OCID to the secret containing your DockerHub password
 steps:
   - type: Command
     name: "Building Hello World"
@@ -25,11 +25,9 @@ steps:
         runAs: root
   - type: Command
     timeoutInSeconds: 10000
-    name: "Pushing Docker image to DockerHub"
+    name: "Pushing to Artifact Registry"
     command: |
-      docker build -t ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${tag_name} .
-      docker login --username ${DOCKERHUB_USERNAME} --password ${DOCKERHUB_PASSWORD}
-      docker push ${DOCKERHUB_USERNAME}/${DOCKERHUB_REPO}:${tag_name}
+      oci artifacts generic artifact upload-by-path --repository-id ocid1.artifactrepository.oc1.iad.0.amaaaaaa34lgq7aastpnkwxnml2sgunn6l3q7x3b7pnia5s3djiskvbegwaq --artifact-path java-docker-buildspec-sample --artifact-version ${OCI_BUILD_RUN_NUMBER} --content-body README.md
     onFailure:
       - type: Command
         command: |
